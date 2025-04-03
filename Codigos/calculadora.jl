@@ -105,6 +105,28 @@ function mostrar_menu()
     print("Escolha uma opção: ")
 end
 
+function comparar_fatorial()
+    println("\nComparação de Fatorial entre Julia, Python e C")
+    print("Número inteiro para o cálculo do fatorial: ")
+    n = parse(Int, readline())
+
+    # Tempo de execução em Julia
+    println("\nCalculando em Julia...")
+    julia_tempo = @elapsed fatorial(n)
+    println("Tempo em Julia: $(round(julia_tempo, digits=5)) segundos")
+
+    # Tempo de execução em Python
+    println("\nCalculando em Python...")
+    python_tempo = @elapsed run(`python fatorial.py $n`)
+    println("Tempo em Python: $(round(python_tempo, digits=5)) segundos")
+
+    # Tempo de execução em C
+    println("\nCalculando em C...")
+    run(`gcc -o fatorial_c fatorial.c`)  # Compila o programa em C
+    c_tempo = @elapsed run(`./fatorial_c $n`)
+    println("Tempo em C: $(round(c_tempo, digits=5)) segundos")
+end
+
 function main()
     calc = Calculadora()
     carregar_historico(calc)
